@@ -13,7 +13,7 @@ regex = "0.2.1"
 shellexpand = "1"
 toml = "0.4"
 url = "1.5"
-dirs = "2.0.2"
+dirs = "3.0.1"
 
 [target.'cfg(windows)'.dependencies]
 winapi = "0.2.8"

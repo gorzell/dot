@@ -170,6 +170,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "dirs"
+version = "3.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "142995ed02755914747cc6ca76fc7e4583cd18578746716d0508ea6ed558b9ff"
+dependencies = [
+ "dirs-sys",
+]
+
+[[package]]
 name = "dirs-sys"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -187,7 +196,7 @@ dependencies = [
  "advapi32-sys",
  "ansi_term 0.9.0",
  "clap",
- "dirs",
+ "dirs 3.0.1",
  "error-chain",
  "kernel32-sys",
  "regex",
@@ -385,7 +394,7 @@ version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c7e79eddc7b411f9beeaaf2d421de7e7cb3b1ab9eaf1b79704c0e4130cba6b5"
 dependencies = [
- "dirs",
+ "dirs 2.0.2",
 ]
 
 [[package]]
