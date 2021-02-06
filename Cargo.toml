@@ -6,7 +6,7 @@ description = "Alternative of dotfile management frameworks"
 edition = "2018"
 
 [dependencies]
-ansi_term = "0.11"
+ansi_term = "0.12"
 clap = "2.20"
 error-chain = "0.12.1"
 regex = "1.4.3"
