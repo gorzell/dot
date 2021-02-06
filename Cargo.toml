@@ -12,7 +12,7 @@ error-chain = "0.12.1"
 regex = "1.4.3"
 shellexpand = "1"
 toml = "0.5"
-url = "1.5"
+url = "2.2"
 dirs = "3.0.1"
 
 [target.'cfg(windows)'.dependencies]
