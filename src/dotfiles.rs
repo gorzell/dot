@@ -1,7 +1,6 @@
 use crate::entry::Entry;
 use crate::util;
 use std::path::{Path, PathBuf};
-use toml;
 
 pub struct Dotfiles {
     _root_dir: PathBuf,
@@ -30,11 +29,11 @@ impl Dotfiles {
 }
 
 fn read_entries(root_dir: &Path) -> Vec<Entry> {
-    let ref entries = util::read_toml(root_dir.join(".mappings")).unwrap();
+    let entries = util::read_toml(root_dir.join(".mappings")).unwrap();
 
     let mut buf = Vec::new();
-    read_entries_from_key(&mut buf, entries, root_dir, "general");
-    read_entries_from_key(&mut buf, entries, root_dir, util::OS_NAME);
+    read_entries_from_key(&mut buf, &entries, root_dir, "general");
+    read_entries_from_key(&mut buf, &entries, root_dir, util::OS_NAME);
 
     buf
 }
