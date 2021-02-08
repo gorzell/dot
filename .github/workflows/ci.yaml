@@ -16,14 +16,14 @@ jobs:
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --test
+          args: --all-features
       - name: Clippy (test)
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --test
+          args: --all-features --tests
   test:
-    name: Rust project
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
