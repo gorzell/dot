@@ -39,7 +39,7 @@ jobs:
     needs: [clippy, test]
     strategy:
       matrix:
-        platform: [ "armv7-unknown-linux-gnueabihf", "aarch64-unknown-linux-gnu", "riscv64gc-unknown-linux-gnu", "x86_64-unknown-linux-gnu", "x86_64-apple-darwin" ]
+        platform: [ "armv7-unknown-linux-gnueabihf", "aarch64-unknown-linux-gnu", "riscv64gc-unknown-linux-gnu", "x86_64-unknown-linux-gnu" ]
     steps:
       - uses: actions/checkout@v2
       - name: Install Rust Toolchain
