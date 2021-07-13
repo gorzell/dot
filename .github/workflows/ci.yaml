@@ -3,9 +3,20 @@ on: [push]
 name: CI
 
 jobs:
+
   clippy:
     name: Clippy
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - { target: x86_64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-18.04 }
+          - { target: armv7-unknown-linux-gnueabihf, os: ubuntu-18.04 }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: riscv64gc-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-pc-windows-msvc, os: windows-latest }
+          - { target: x86_64-apple-darwin, os: macos-latest   }
+    runs-on: ${{ matrix.platform.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Rust Toolchain
@@ -22,9 +33,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features --tests
+
   test:
     name: Test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - { target: x86_64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-18.04 }
+          - { target: armv7-unknown-linux-gnueabihf, os: ubuntu-18.04 }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: riscv64gc-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-pc-windows-msvc, os: windows-latest }
+          - { target: x86_64-apple-darwin, os: macos-latest   }
+    runs-on: ${{ matrix.platform.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Rust Toolchain
@@ -33,13 +55,21 @@ jobs:
           toolchain: stable
       - name: Run Tests
         run: cargo test
+
   build:
     name: Cross Compile
-    runs-on: ubuntu-latest
     needs: [clippy, test]
     strategy:
       matrix:
-        platform: [ "armv7-unknown-linux-gnueabihf", "aarch64-unknown-linux-gnu", "riscv64gc-unknown-linux-gnu", "x86_64-unknown-linux-gnu" ]
+        platform:
+          - { target: x86_64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-18.04 }
+          - { target: armv7-unknown-linux-gnueabihf, os: ubuntu-18.04 }
+          - { target: aarch64-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: riscv64gc-unknown-linux-gnu, os: ubuntu-18.04 }
+          - { target: x86_64-pc-windows-msvc, os: windows-latest }
+          - { target: x86_64-apple-darwin, os: macos-latest   }
+    runs-on: ${{ matrix.platform.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Rust Toolchain
@@ -51,4 +81,4 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target ${{ matrix.platform }}
+          args: --target ${{ matrix.platform.target }}
