@@ -1,13 +1,14 @@
 [package]
 name = "dot"
-version = "0.2.0"
-authors = ["Yusuke Sasaki <yusuke.sasaki.nuem@gmail.com>"]
+version = "0.3.0"
+authors = ["Greg Orzell", "Yusuke Sasaki <yusuke.sasaki.nuem@gmail.com>"]
 description = "Alternative of dotfile management frameworks"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 ansi_term = "0.12"
-clap = "2.20"
+clap = { version = "3.0.0-rc.9", features = ["derive", "wrap_help"] }
+clap_generate = "3.0.0-rc.9"
 error-chain = "0.12.1"
 regex = "1.5.4"
 shellexpand = "2"

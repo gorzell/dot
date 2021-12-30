@@ -1,6 +1,7 @@
 [toolchain]
-channel = "stable"
+channel = "1.57.0"
 components = [ "rustfmt", "clippy" ]
 targets = ["armv7-unknown-linux-gnueabihf", "aarch64-unknown-linux-gnu", "riscv64gc-unknown-linux-gnu", "x86_64-unknown-linux-gnu", "x86_64-apple-darwin" ]
+profile = "default"
 
 # Details on supported fields: https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
