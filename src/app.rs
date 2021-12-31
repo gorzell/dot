@@ -143,10 +143,10 @@ fn resolve_url(s: &str) -> Result<Url> {
         Url::parse(&format!("ssh://{}{}/{}.git", username, host, path)).map_err(Into::into)
     } else {
         let username = s
-            .splitn(2, '/')
-            .next()
+            .split_once('/')
+            .map(|x| x.1)
             .ok_or_else(|| "'username' is unknown".to_owned())?;
-        let reponame = s.splitn(2, '/').nth(1).unwrap_or("dotfiles");
+        let reponame = s.split_once('/').map(|x| x.1).unwrap_or("dotfiles");
         Url::parse(&format!("https://github.com/{}/{}.git", username, reponame)).map_err(Into::into)
     }
 }

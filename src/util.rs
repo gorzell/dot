@@ -111,22 +111,22 @@ pub fn read_toml<P: AsRef<Path>>(path: P) -> Result<toml::value::Table, io::Erro
 }
 
 #[cfg(target_os = "windows")]
-pub static OS_NAME: &'static str = "windows";
+pub static OS_NAME: &str = "windows";
 
 #[cfg(target_os = "macos")]
-pub static OS_NAME: &'static str = "darwin";
+pub static OS_NAME: &str = "darwin";
 
 #[cfg(target_os = "linux")]
 pub const OS_NAME: &str = "linux";
 
 #[cfg(target_os = "android")]
-pub static OS_NAME: &'static str = "linux";
+pub static OS_NAME: &str = "linux";
 
 #[cfg(target_os = "freebsd")]
-pub static OS_NAME: &'static str = "freebsd";
+pub static OS_NAME: &str = "freebsd";
 
 #[cfg(target_os = "openbsd")]
-pub static OS_NAME: &'static str = "openbsd";
+pub static OS_NAME: &str = "openbsd";
 
 // create an instance of PathBuf from string.
 pub fn make_pathbuf(path: &str) -> PathBuf {

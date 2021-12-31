@@ -56,7 +56,7 @@ fn read_entries_from_key(
     key: &str,
 ) {
     if let Some(entries_table) = entries.get(key).and_then(|value| value.as_table()) {
-        for (ref key, ref val) in entries_table.iter() {
+        for (key, val) in entries_table.iter() {
             if let Some(val) = val.as_str() {
                 buf.push(new_entry(root_dir, key, val));
             }
