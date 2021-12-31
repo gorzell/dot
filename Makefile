@@ -3,7 +3,7 @@ TARGETS=armv7-unknown-linux-gnueabihf aarch64-unknown-linux-gnu riscv64gc-unknow
 # x86_64-apple-darwin
 
 .PHONY: all
-all: build lint test
+all: format build lint test
 
 .PHONY: bootstrap
 bootstrap:
@@ -70,4 +70,3 @@ deb:
 	for target in $(TARGETS); do \
 		cargo deb --no-build --no-strip --target $$target ; \
 	done
-

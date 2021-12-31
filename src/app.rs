@@ -1,6 +1,6 @@
 use crate::dotfiles::Dotfiles;
-use crate::errors::Result;
 use crate::util;
+use anyhow::{anyhow, Context, Result};
 use regex::Regex;
 use std::borrow::Borrow;
 use std::env;
@@ -27,7 +27,7 @@ impl App {
         })
     }
 
-    pub fn command_clone(&self, query: &str) -> Result<i32> {
+    pub fn command_clone(&self, query: &str) -> Result<()> {
         let url = resolve_url(query)?;
         let dotdir = self.dotfiles.root_dir().to_string_lossy();
         util::wait_exec(
@@ -39,9 +39,9 @@ impl App {
         .map_err(Into::into)
     }
 
-    pub fn command_root(&self) -> Result<i32> {
+    pub fn command_root(&self) -> Result<()> {
         println!("{}", self.dotfiles.root_dir().display());
-        Ok(0)
+        Ok(())
     }
 
     pub fn command_check(&mut self) -> Result<i32> {
@@ -56,7 +56,7 @@ impl App {
         Ok(num_unhealth)
     }
 
-    pub fn command_link(&mut self) -> Result<i32> {
+    pub fn command_link(&mut self) -> Result<()> {
         self.dotfiles.read_entries();
 
         if !self.dry_run {
@@ -67,17 +67,17 @@ impl App {
             entry.mklink(self.dry_run, self.verbose).unwrap();
         }
 
-        Ok(0)
+        Ok(())
     }
 
-    pub fn command_clean(&mut self) -> Result<i32> {
+    pub fn command_clean(&mut self) -> Result<()> {
         self.dotfiles.read_entries();
 
         for entry in self.dotfiles.entries() {
             entry.unlink(self.dry_run, self.verbose).unwrap();
         }
 
-        Ok(0)
+        Ok(())
     }
 }
 
@@ -110,7 +110,7 @@ fn init_envs() -> Result<String> {
 
     let dotdir = env::var("DOT_DIR")
         .or_else(|_| util::expand_full("$HOME/.dotfiles"))
-        .map_err(|_| "failed to determine dotdir".to_string())?;
+        .context("failed to determine dotdir")?;
     env::set_var("DOT_DIR", dotdir.as_str());
     env::set_var("dotdir", dotdir.as_str());
 
@@ -124,7 +124,7 @@ fn resolve_url(s: &str) -> Result<Url> {
     if let Some(cap) = re_scheme.captures(s) {
         match cap.get(1).unwrap().as_str() {
             "http" | "https" | "ssh" | "git" | "file" => Url::parse(s).map_err(Into::into),
-            scheme => Err(format!("'{}' is invalid scheme", scheme).into()),
+            scheme => Err(anyhow!("'{}' is invalid scheme", scheme)),
         }
     } else if let Some(cap) = re_scplike.captures(s) {
         let username = cap
@@ -145,7 +145,7 @@ fn resolve_url(s: &str) -> Result<Url> {
         let username = s
             .split_once('/')
             .map(|x| x.1)
-            .ok_or_else(|| "'username' is unknown".to_owned())?;
+            .context("'username' is unknown")?;
         let reponame = s.split_once('/').map(|x| x.1).unwrap_or("dotfiles");
         Url::parse(&format!("https://github.com/{}/{}.git", username, reponame)).map_err(Into::into)
     }

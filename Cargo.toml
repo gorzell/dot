@@ -6,12 +6,13 @@ description = "Alternative of dotfile management frameworks"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0"
 ansi_term = "0.12"
 clap = { version = "3.0.0-rc.11", features = ["derive", "wrap_help"] }
 clap_generate = "3.0.0-rc.11"
-error-chain = "0.12"
 regex = "1.5"
 shellexpand = "2"
+thiserror = "1.0"
 toml = "0.5"
 url = "2.2"
 dirs = "4.0"

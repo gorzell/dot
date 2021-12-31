@@ -1,9 +1,7 @@
 extern crate ansi_term;
+extern crate regex;
 extern crate shellexpand;
 extern crate toml;
-#[macro_use]
-extern crate error_chain;
-extern crate regex;
 extern crate url;
 
 #[cfg(windows)]
@@ -19,15 +17,5 @@ mod entry;
 pub mod util;
 #[cfg(windows)]
 mod windows;
-
-mod errors {
-    error_chain! {
-      foreign_links {
-        Io(::std::io::Error);
-        UrlParse(::url::ParseError);
-      }
-    }
-}
-pub use crate::errors::*;
 
 pub use crate::app::App;

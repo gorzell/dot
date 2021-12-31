@@ -11,10 +11,10 @@ pub fn wait_exec(
     args: &[&str],
     curr_dir: Option<&Path>,
     dry_run: bool,
-) -> Result<i32, io::Error> {
+) -> Result<(), io::Error> {
     if dry_run {
         println!("{} {:?} (@ {:?})", cmd, args, curr_dir);
-        return Ok(0);
+        return Ok(());
     }
 
     let mut command = Command::new(cmd);
@@ -28,10 +28,13 @@ pub fn wait_exec(
     }
 
     let mut child = command.spawn()?;
-    child.wait().and_then(|st| {
-        st.code()
-            .ok_or_else(|| io::Error::new(io::ErrorKind::Other, ""))
-    })
+    child
+        .wait()
+        .and_then(|st| {
+            st.code()
+                .ok_or_else(|| io::Error::new(io::ErrorKind::Other, ""))
+        })
+        .map(|_| {})
 }
 
 pub fn expand_full(s: &str) -> Result<String, LookupError<env::VarError>> {

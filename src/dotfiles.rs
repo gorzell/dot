@@ -29,8 +29,8 @@ impl Dotfiles {
 }
 
 fn read_entries(root_dir: &Path) -> Vec<Entry> {
-    let entries = util::read_toml(root_dir.join(".mappings")).unwrap();
-
+    let entries = util::read_toml(root_dir.join(".mappings"))
+        .unwrap_or_else(|_| panic!("could not open .mappings file in:{:?}", root_dir));
     let mut buf = Vec::new();
     read_entries_from_key(&mut buf, &entries, root_dir, "general");
     read_entries_from_key(&mut buf, &entries, root_dir, util::OS_NAME);
