@@ -44,7 +44,10 @@ impl Entry {
         if status != EntryStatus::Healthy {
             println!(
                 "{} {} ({:?})",
-                ansi_term::Style::new().bold().fg(ansi_term::Colour::Red).paint("✘"),
+                ansi_term::Style::new()
+                    .bold()
+                    .fg(ansi_term::Colour::Red)
+                    .paint("✘"),
                 self.dst.display(),
                 status
             );
@@ -53,7 +56,10 @@ impl Entry {
         if verbose {
             println!(
                 "{} {}\n  => {}",
-                ansi_term::Style::new().bold().fg(ansi_term::Colour::Green).paint("✓"),
+                ansi_term::Style::new()
+                    .bold()
+                    .fg(ansi_term::Colour::Green)
+                    .paint("✓"),
                 self.dst.display(),
                 self.src.display()
             );

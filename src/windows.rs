@@ -121,7 +121,11 @@ extern "system" {
     ) -> BOOL;
     fn FreeSid(pSid: PSID) -> *mut c_void;
 
-    fn CheckTokenMembership(TokenHandle: winnt::HANDLE, SidToCheck: PSID, IsMember: *mut BOOL) -> BOOL;
+    fn CheckTokenMembership(
+        TokenHandle: winnt::HANDLE,
+        SidToCheck: PSID,
+        IsMember: *mut BOOL,
+    ) -> BOOL;
 }
 
 struct Handle(winnt::HANDLE);
@@ -165,7 +169,8 @@ pub fn enable_privilege(name: &str) -> Result<(), &'static str> {
     // 2. retrieve a LUID for given priviledge
     let luid = lookup_privilege_value(name)?;
 
-    let len = mem::size_of::<winnt::TOKEN_PRIVILEGES>() + 1 * mem::size_of::<winnt::LUID_AND_ATTRIBUTES>();
+    let len = mem::size_of::<winnt::TOKEN_PRIVILEGES>()
+        + 1 * mem::size_of::<winnt::LUID_AND_ATTRIBUTES>();
     let token_privileges = vec![0u8; len];
     unsafe {
         let mut p = token_privileges.as_ptr() as *mut winnt::TOKEN_PRIVILEGES;
@@ -248,7 +253,9 @@ pub fn get_elevation_type() -> Result<ElevationType, &'static str> {
 
 fn open_process_token(token_type: u32) -> Result<Handle, &'static str> {
     let mut h_token = null_mut();
-    let ret = unsafe { advapi32::OpenProcessToken(kernel32::GetCurrentProcess(), token_type, &mut h_token) };
+    let ret = unsafe {
+        advapi32::OpenProcessToken(kernel32::GetCurrentProcess(), token_type, &mut h_token)
+    };
     match ret {
         0 => Err("failed to get process token"),
         _ => Ok(Handle::new(h_token)),

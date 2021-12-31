@@ -6,7 +6,12 @@ use std::path::{Path, PathBuf, MAIN_SEPARATOR};
 use std::process::{Command, Stdio};
 
 #[allow(dead_code)]
-pub fn wait_exec(cmd: &str, args: &[&str], curr_dir: Option<&Path>, dry_run: bool) -> Result<i32, io::Error> {
+pub fn wait_exec(
+    cmd: &str,
+    args: &[&str],
+    curr_dir: Option<&Path>,
+    dry_run: bool,
+) -> Result<i32, io::Error> {
     if dry_run {
         println!("{} {:?} (@ {:?})", cmd, args, curr_dir);
         return Ok(0);
@@ -23,9 +28,10 @@ pub fn wait_exec(cmd: &str, args: &[&str], curr_dir: Option<&Path>, dry_run: boo
     }
 
     let mut child = command.spawn()?;
-    child
-        .wait()
-        .and_then(|st| st.code().ok_or_else(|| io::Error::new(io::ErrorKind::Other, "")))
+    child.wait().and_then(|st| {
+        st.code()
+            .ok_or_else(|| io::Error::new(io::ErrorKind::Other, ""))
+    })
 }
 
 pub fn expand_full(s: &str) -> Result<String, LookupError<env::VarError>> {
@@ -54,7 +60,11 @@ where
     Q: AsRef<Path>,
 {
     if dry_run {
-        println!("make_link({}, {})", src.as_ref().display(), dst.as_ref().display());
+        println!(
+            "make_link({}, {})",
+            src.as_ref().display(),
+            dst.as_ref().display()
+        );
         Ok(())
     } else {
         fs::create_dir_all(dst.as_ref().parent().unwrap())?;
@@ -92,8 +102,12 @@ pub fn read_toml<P: AsRef<Path>>(path: P) -> Result<toml::value::Table, io::Erro
     file.read_to_end(&mut buf)?;
 
     let content = String::from_utf8_lossy(&buf[..]).into_owned();
-    toml::de::from_str(&content)
-        .map_err(|_| io::Error::new(io::ErrorKind::Other, "failed to parse configuration file as TOML"))
+    toml::de::from_str(&content).map_err(|_| {
+        io::Error::new(
+            io::ErrorKind::Other,
+            "failed to parse configuration file as TOML",
+        )
+    })
 }
 
 #[cfg(target_os = "windows")]

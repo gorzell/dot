@@ -30,7 +30,13 @@ impl App {
     pub fn command_clone(&self, query: &str) -> Result<i32> {
         let url = resolve_url(query)?;
         let dotdir = self.dotfiles.root_dir().to_string_lossy();
-        util::wait_exec("git", &["clone", url.as_str(), dotdir.borrow()], None, self.dry_run).map_err(Into::into)
+        util::wait_exec(
+            "git",
+            &["clone", url.as_str(), dotdir.borrow()],
+            None,
+            self.dry_run,
+        )
+        .map_err(Into::into)
     }
 
     pub fn command_root(&self) -> Result<i32> {
@@ -80,10 +86,12 @@ fn check_symlink_privilege() {
     use windows::ElevationType;
 
     match windows::get_elevation_type().unwrap() {
-        ElevationType::Default => match windows::enable_privilege("SeCreateSymbolicLinkPrivilege") {
-            Ok(_) => (),
-            Err(err) => panic!("failed to enable SeCreateSymbolicLinkPrivilege: {}", err),
-        },
+        ElevationType::Default => {
+            match windows::enable_privilege("SeCreateSymbolicLinkPrivilege") {
+                Ok(_) => (),
+                Err(err) => panic!("failed to enable SeCreateSymbolicLinkPrivilege: {}", err),
+            }
+        }
         ElevationType::Limited => {
             panic!("should be elevate as an Administrator.");
         }
@@ -121,7 +129,13 @@ fn resolve_url(s: &str) -> Result<Url> {
     } else if let Some(cap) = re_scplike.captures(s) {
         let username = cap
             .get(1)
-            .and_then(|s| if s.as_str() != "" { Some(s.as_str()) } else { None })
+            .and_then(|s| {
+                if s.as_str() != "" {
+                    Some(s.as_str())
+                } else {
+                    None
+                }
+            })
             .unwrap_or("git@");
         let host = cap.get(2).unwrap().as_str();
         let path = cap.get(3).unwrap().as_str();
