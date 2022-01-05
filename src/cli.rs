@@ -1,5 +1,5 @@
 use clap::{AppSettings, Parser, Subcommand};
-use clap_generate::Shell;
+use clap_complete::shells::Shell;
 
 #[derive(Parser, Debug)]
 #[clap(version, about)]
