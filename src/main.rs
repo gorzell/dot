@@ -3,7 +3,7 @@ extern crate dot;
 use crate::cli::Options;
 use anyhow::Result;
 use clap::{IntoApp, Parser};
-use clap_generate::generate;
+use clap_complete::generator::generate;
 use cli::Command;
 use dot::App;
 use std::io;

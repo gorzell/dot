@@ -142,16 +142,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap_generate"
-version = "3.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09f3a413cef2f15147515885eeafeab3039d5f922cd9a64c3f56eee0c505a2ba"
-dependencies = [
- "clap",
- "clap_complete",
-]
-
-[[package]]
 name = "dirs"
 version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -200,7 +190,7 @@ dependencies = [
  "ansi_term",
  "anyhow",
  "clap",
- "clap_generate",
+ "clap_complete",
  "dirs",
  "kernel32-sys",
  "regex",
@@ -454,9 +444,9 @@ checksum = "7ef03e0a2b150c7a90d01faf6254c9c48a41e95fb2a8c2ac1c6f0d2b9aefc342"
 
 [[package]]
 name = "serde"
-version = "1.0.132"
+version = "1.0.133"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b9875c23cf305cd1fd7eb77234cbb705f21ea6a72c637a5c6db5fe4b8e7f008"
+checksum = "97565067517b60e2d1ea8b268e59ce036de907ac523ad83a0475da04e818989a"
 
 [[package]]
 name = "shellexpand"
