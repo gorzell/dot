@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0"
 ansi_term = "0.12"
-clap = { version = "3.0", features = ["derive", "wrap_help"] }
+clap = { version = "3.1", features = ["derive", "wrap_help"] }
 clap_complete = "3.0"
 regex = "1.5"
 shellexpand = "2"
