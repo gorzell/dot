@@ -32,8 +32,8 @@ pub fn main() -> Result<()> {
         Command::Completion(args) => {
             generate(
                 args.shell,
-                &mut Options::into_app(),
-                Options::into_app().get_name(),
+                &mut Options::command(),
+                Options::command().get_name(),
                 &mut io::stdout(),
             );
         }

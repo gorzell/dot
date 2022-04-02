@@ -1,11 +1,11 @@
-use clap::{AppSettings, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 use clap_complete::shells::Shell;
 
 #[derive(Parser, Debug)]
 #[clap(version, about)]
-#[clap(global_setting(AppSettings::PropagateVersion))]
-#[clap(global_setting(AppSettings::UseLongFormatForHelpSubcommand))]
-#[clap(setting(AppSettings::SubcommandRequiredElseHelp))]
+#[clap(propagate_version = true)]
+#[clap(subcommand_required = true)]
+#[clap(arg_required_else_help = true)]
 pub struct Options {
     #[clap(subcommand)]
     pub command: Command,

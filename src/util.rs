@@ -133,8 +133,8 @@ pub static OS_NAME: &str = "openbsd";
 
 // create an instance of PathBuf from string.
 pub fn make_pathbuf(path: &str) -> PathBuf {
-    let path = path.replace("/", &format!("{}", MAIN_SEPARATOR));
-    Path::new(&path).to_path_buf()
+    let path = path.replace('/', &format!("{}", MAIN_SEPARATOR));
+    PathBuf::from(&path)
 }
 
 pub fn is_symlink<P: AsRef<Path>>(path: P) -> Result<bool, io::Error> {
