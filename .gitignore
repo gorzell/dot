@@ -2,3 +2,4 @@ target/
 *.tar.gz
 dot-*/
 completions/
+.idea/

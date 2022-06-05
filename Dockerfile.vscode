@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/vscode/devcontainers/base:jammy
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# First setup the terraform apt repo so that we can install the version that we need.
+RUN apt-get update \
+    && apt install -y --no-install-recommends  \
+    build-essential \
+    ca-certificates \
+    clang \
+    cmake \
+    curl \
+    git \
+    heaptrack \
+    libssl-dev \
+    lldb \
+    procps \
+    software-properties-common \
+    && apt-get clean -y \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV DEBIAN_FRONTEND=readline
