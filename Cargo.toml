@@ -9,7 +9,7 @@ edition = "2021"
 anyhow = "1.0"
 ansi_term = "0.12"
 clap = { version = "3.2", features = ["derive", "wrap_help"] }
-clap_complete = "3.1"
+clap_complete = "3.2"
 regex = "1.5"
 shellexpand = "2"
 thiserror = "1.0"
