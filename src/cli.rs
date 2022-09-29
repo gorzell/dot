@@ -41,6 +41,6 @@ pub struct CloneOptions {
 
 #[derive(Parser, Debug)]
 pub struct CompletionOptions {
-    #[clap(arg_enum, help = "Shell name.")]
+    #[clap(value_enum, help = "Shell name.")]
     pub shell: Shell,
 }
