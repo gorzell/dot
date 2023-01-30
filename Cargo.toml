@@ -13,7 +13,7 @@ clap_complete = "4.1"
 regex = "1.7"
 shellexpand = "3"
 thiserror = "1.0"
-toml = "0.5"
+toml = "0.7"
 url = "2.3"
 dirs = "4.0"
 
