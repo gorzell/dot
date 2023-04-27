@@ -140,13 +140,13 @@ fn resolve_url(s: &str) -> Result<Url> {
         let host = cap.get(2).unwrap().as_str();
         let path = cap.get(3).unwrap().as_str();
 
-        Url::parse(&format!("ssh://{}{}/{}.git", username, host, path)).map_err(Into::into)
+        Url::parse(&format!("ssh://{username}{host}/{path}.git",)).map_err(Into::into)
     } else {
         let username = s
             .split_once('/')
             .map(|x| x.1)
             .context("'username' is unknown")?;
         let reponame = s.split_once('/').map(|x| x.1).unwrap_or("dotfiles");
-        Url::parse(&format!("https://github.com/{}/{}.git", username, reponame)).map_err(Into::into)
+        Url::parse(&format!("https://github.com/{username}/{reponame}.git",)).map_err(Into::into)
     }
 }

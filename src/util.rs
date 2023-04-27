@@ -13,7 +13,7 @@ pub fn wait_exec(
     dry_run: bool,
 ) -> Result<(), io::Error> {
     if dry_run {
-        println!("{} {:?} (@ {:?})", cmd, args, curr_dir);
+        println!("{cmd} {args:?} (@ {curr_dir:?})");
         return Ok(());
     }
 
@@ -133,7 +133,7 @@ pub static OS_NAME: &str = "openbsd";
 
 // create an instance of PathBuf from string.
 pub fn make_pathbuf(path: &str) -> PathBuf {
-    let path = path.replace('/', &format!("{}", MAIN_SEPARATOR));
+    let path = path.replace('/', &format!("{MAIN_SEPARATOR}"));
     PathBuf::from(&path)
 }
 
