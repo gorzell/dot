@@ -15,7 +15,7 @@ shellexpand = "3"
 thiserror = "1.0"
 toml = "0.7"
 url = "2.3"
-dirs = "4.0"
+dirs = "5.0"
 
 [target.'cfg(windows)'.dependencies]
 winapi = "0.3"
