@@ -14,7 +14,7 @@ regex = "1.8"
 shellexpand = "3"
 thiserror = "1.0"
 toml = "0.7"
-url = "2.3"
+url = "2.4"
 dirs = "5.0"
 
 [target.'cfg(windows)'.dependencies]
