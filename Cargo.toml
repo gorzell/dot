@@ -10,7 +10,7 @@ anyhow = "1.0"
 ansi_term = "0.12"
 clap = { version = "4.4", features = ["derive", "wrap_help"] }
 clap_complete = "4.4"
-regex = "1.9"
+regex = "1.10"
 shellexpand = "3"
 thiserror = "1.0"
 toml = "0.8"
