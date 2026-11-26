@@ -19,9 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
+        run: rustup toolchain install stable --profile minimal --component clippy && rustup default stable
       - name: Clippy (src)
         run: cargo clippy --all-features --no-deps
       - name: Clippy (test)
@@ -43,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
+        run: rustup toolchain install stable --profile minimal && rustup default stable
       - name: Run Tests
         run: cargo test
 
@@ -64,12 +62,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust Toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform.target }}
+        run: rustup toolchain install stable --profile minimal --target ${{ matrix.platform.target }} && rustup default stable
       - name: Install cross
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cross
+        run: cargo install cross --locked
       - name: Build
         run: cross build --target ${{ matrix.platform.target }}
