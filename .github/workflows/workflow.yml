@@ -42,14 +42,6 @@ jobs:
         path: ~/.cargo/git
         key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
 
-    - name: Install Rust toolchain
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: stable
-        target: ${{ matrix.conf.target }}
-        override: true
-
     - name: Run tests
       uses: actions-rs/cargo@v1
       if: matrix.conf.disable_tests != true
