@@ -5,10 +5,6 @@ extern crate toml;
 extern crate url;
 
 #[cfg(windows)]
-extern crate advapi32;
-#[cfg(windows)]
-extern crate kernel32;
-#[cfg(windows)]
 extern crate winapi;
 
 pub mod app;

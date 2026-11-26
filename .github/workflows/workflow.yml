@@ -23,7 +23,7 @@ jobs:
           - { target: x86_64-unknown-linux-musl , os: ubuntu-18.04   , use_cross: true }
           - { target: x86_64-pc-windows-msvc    , os: windows-latest }
           # - { target: x86_64-pc-windows-gnu     , os: ubuntu-latest  , use_cross: true }
-          - { target: x86_64-apple-darwin       , os: macos-latest   }
+          - { target: aarch64-apple-darwin      , os: macos-latest   }
           # - { target: x86_64-unknown-freebsd    , os: ubuntu-18.04   , use_cross: true , disable_tests: true }
           # - { target: arm-linux-androideabi     , os: ubuntu-18.04   , use_cross: true , disable_tests: true }
 
@@ -41,14 +41,6 @@ jobs:
       with:
         path: ~/.cargo/git
         key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-
-    - name: Install Rust toolchain
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: stable
-        target: ${{ matrix.conf.target }}
-        override: true
 
     - name: Run tests
       uses: actions-rs/cargo@v1
