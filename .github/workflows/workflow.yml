@@ -29,15 +29,15 @@ jobs:
 
     runs-on: ${{ matrix.conf.os }}
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v7
 
     - name: Cache cargo registry
-      uses: actions/cache@v1
+      uses: actions/cache@v6
       with:
         path: ~/.cargo/registry
         key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
     - name: Cache cargo index
-      uses: actions/cache@v1
+      uses: actions/cache@v6
       with:
         path: ~/.cargo/git
         key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
@@ -65,7 +65,7 @@ jobs:
       run: Compress-Archive -Destination dot-${{ matrix.conf.target }}.zip -Path target/${{ matrix.conf.target }}/release/dot.exe
       if: contains(runner.os, 'windows')
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v7
       with:
         name: dot-${{ matrix.conf.target }}.zip
         path: dot-${{ matrix.conf.target }}.zip
